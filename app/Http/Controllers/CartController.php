@@ -7,6 +7,8 @@ use App\Models\Item;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
 
+use App\Facades\Cart;
+
 class CartController extends Controller
 {
     public function __construct()
@@ -20,18 +22,14 @@ class CartController extends Controller
     
     public function index(Request $request)
     {
-        $data = [];
-        if ($request->session()->has('user_items')) {
-            $user_items = UserItem::sessionValues($request);
-
-            //SELECT * FROM items WHERE id IN (xx, xx, xx);
-            $items = Item::whereIn('id', array_keys($user_items))->get();
-            $data = [
-                'user_items' => $user_items,
-                'items' => $items,
-            ];
-        }
+        $data = Cart::orderList($request);
         return view('cart.index', $data);
+    }
+
+    public function confirm(Request $request)
+    {
+        $data = Cart::orderList($request);
+        return view('cart.confirm', $data);
     }
 
     public function add(Request $request)
@@ -54,4 +52,20 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    public function updates(Request $request)
+    {
+        UserItem::updatesCart($request, $this->user);
+        return redirect()->route('cart.index');
+    }
+
+    public function order(Request $request)
+    {
+        Cart::order($request);
+        return redirect()->route('cart.result');
+    }
+
+    public function result()
+    {
+        return view('cart.result');
+    }
 }

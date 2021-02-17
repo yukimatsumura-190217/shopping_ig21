@@ -12,7 +12,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::get();
+        $items = Item::orderBy('code')->get();
         $data = ['items' => $items];
         return view('admin.item.index',$data);
     }
@@ -27,7 +27,7 @@ class ItemController extends Controller
         //DBの追加処理
         // return redirect('admin/item/');
         $posts = $request->all();
-        Item::create($posts);
+        // Item::create($posts);
         return redirect()->route('admin.item.index');
     }
 

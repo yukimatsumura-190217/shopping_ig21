@@ -4,9 +4,12 @@
 
 <div class="container">
 
+
+
     <div class="row">
 
-        @if (isset($items))
+        <Items></Items>
+        <!-- @if (isset($items))
         @foreach ($items as $item)
         <div class="col-md-4 mb-2">
 
@@ -19,10 +22,10 @@
 
         <p class="row justify-content-center">
         <a href="" class="btn btn-info">{{__('Add Cart')}}</a>
-        </p>
-    </div>
+        </p> -->
+    <!-- </div>
     @endforeach
-    @endif
+    @endif -->
 
     </div>
 </div>

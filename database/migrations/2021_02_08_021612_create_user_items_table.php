@@ -19,7 +19,7 @@ class CreateUserItemsTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('item_id');
             $table->integer('amount');
-            $table->integer('tax');
+            $table->integer('tax')->nullable();
         });
     }
 

@@ -2,6 +2,28 @@
 
 @section('content')
 <div class="container">
+
+  @if (empty($items))
+  {{ __('Cart is empty.') }}
+  @else
+  <form action="{{ route('cart.updates') }}" method="post">
+    @csrf
+    @include('cart.components.index_nav')
+    @include('cart.components.index_item_list')
+  </form>
+  @endif
+
+  @if (isset($items)):
+  @include('cart.components.index_control')
+  @endif
+
+</div>
+@endsection
+
+<!-- @extends('layouts.app')
+
+@section('content')
+<div class="container">
   <a class="btn btn-danger" href="{{ route('cart.clear') }}">{{ __('Clear All') }}</a>
   <table class="table">
     <thead>
@@ -34,4 +56,4 @@
         @endif
       </table>
     </div>
-@endsection
+@endsection -->
